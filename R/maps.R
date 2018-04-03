@@ -1,6 +1,7 @@
 #' Create a jet colormap for use in e.g. heatmaps
 #' @return vector of hex color defining the jet colormap
 #' @example mymap = cjet()
+#' @import ggplot2
 #' @export
 cjet = function(){
   jet = c("#00008F", "#00009F", "#0000AF", "#0000BF", "#0000CF", "#0000DF",
@@ -28,4 +29,27 @@ clincol = function(){
    "#14BF26","#8580F5","#D47CDE","#13BF21","#897BF5","#D387E4","#10BF1D","#8E77F5","#D292EB","#0CBF18","#9373F6","#D29CF3",
    "#09BF13","#986FF9","#D1A5FB","#07BE0E")
    return(as.vector(cscale))
+}
+#' Create a redness colormap for use in e.g. heatmaps
+#' @return vector of hex color defining the linear colormap
+#' @example mymap = pbmccol
+#' @export
+pbmccol = function(){
+  cscale = c(clear = "#a4abb5",
+             pink = "#f4bee7",
+             pinker = "#f722c4",
+             red = "#f72121",
+             yellowish = "#f7f28c")
+  return(as.vector(cscale))
+}
+
+#' map data to a divergent colormap
+#' @return vector of hex colors corresponding to the input data
+#' @example colors = mapToDivColorMap(randn(10))
+#' @export
+mapToDivColorMap = function(x, clScale = list(low = -1, mid = 0, high = 1), clValues = c("#3bef3b", "#000000", "#f42411") ){
+  scaled.color = rescale(x - clScale$mid, from = c(clScale$low, clScale$high), clip = TRUE)
+  aScale = scale_color_gradient2(low = clValues[1], mid = clValues[2], high = clValues[3])
+  color = aScale$palette(scaled.color)
+  return(color)
 }

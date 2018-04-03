@@ -2,5 +2,8 @@
 
 export(cjet)
 export(clincol)
+export(mapToDivColorMap)
+export(pbmccol)
 export(rescale)
+import(ggplot2)
 import(scales)
